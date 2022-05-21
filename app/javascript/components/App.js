@@ -1,7 +1,10 @@
 import React from 'react';
+import Editor from './Editor';
 
-const HelloMessage = ({ name }) => (
-  <h1>Hello {name}! </h1>
-)
+const App = () => {
+  return (
+    <Editor />
+  )
+}
 
-export default HelloMessage;
+export default App;
