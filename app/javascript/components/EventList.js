@@ -1,19 +1,21 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const EventList = ({ events }) => (
-  <section>
+  <section className="eventList">
 
     <h2>Events</h2>
 
     <ul>
       {events.sort((a, b) => new Date(b.event_date) - new Date(a.event_date))
         .map((event) => (
-
-          <li key={event.id}>
-            {event.event_date}
-            {' - '}
-            {event.event_type}
+          <li>
+            <NavLink key={event.id} to={`/events/${event.id}`}>
+              {event.event_date}
+              {' - '}
+              {event.event_type}
+            </NavLink>
           </li>
         ))}
     </ul>
