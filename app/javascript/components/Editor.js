@@ -23,7 +23,7 @@ const Editor = () => {
 
       setIsLoading(false)
   }
-  
+
   fetchEvents();
 }, [])
 

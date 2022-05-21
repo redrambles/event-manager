@@ -3,7 +3,9 @@ import React from 'react';
 const Header = () => {
 
   return (
-    <p>This is the header</p>
+    <header>
+      <h1>Event Manager</h1>
+    </header>
   )
 }
 
