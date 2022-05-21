@@ -9,6 +9,7 @@ const EventList = ({ events }) => (
     <ul>
       {events.sort((a, b) => new Date(b.event_date) - new Date(a.event_date))
         .map((event) => (
+
           <li key={event.id}>
             {event.event_date}
             {' - '}
