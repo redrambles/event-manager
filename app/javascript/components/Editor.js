@@ -8,34 +8,32 @@ const Editor = () => {
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    setIsLoading(true)
+    setIsLoading(true);
 
     const fetchEvents = async () => {
       try {
-        const response = await window.fetch('/api/events');
-        if (!response.ok) throw Error(response.statusText)
-        const data = await response.json()
-        setEvents(data)
-      } catch (err){
-        setIsError(true)
-        console.error(err)
+        const response = await fetch('/api/events');
+        if (!response.ok) throw Error(response.statusText);
+        const data = await response.json();
+        setEvents(data);
+      } catch (err) {
+        setIsError(true);
+        console.error(err);
       }
 
-      setIsLoading(false)
-  }
+      setIsLoading(false);
+    };
 
-  fetchEvents();
-}, [])
+    fetchEvents();
+  }, []);
 
   return (
     <>
-    <Header />
-    {isError && <p>Something went wrong, bitch! Check out the console and cry.</p>}
-    {isLoading ? <p>Loading...</p> :  <EventList events={events}/>}
+      <Header />
+      {isError && <p>Something went wrong, bitch! Check out the console and cry.</p>}
+      {isLoading ? <p>Loading...</p> : <EventList events={events} />}
     </>
-  )
-
-}
-
+  );
+};
 
 export default Editor;
