@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
-import { validateEvent } from './helpers';
+import React, { useState, useRef, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import Pikaday from 'pikaday';
+import { validateEvent, formatDate } from '../helpers';
+import 'pikaday/css/pikaday.css';
 
-const EventForm = () => {
+const EventForm = ({ addEvent }) => {
   const [formElements, setFormElements] = useState({
     event_type: '',
     event_date: '',
@@ -13,6 +16,27 @@ const EventForm = () => {
 
   const [formErrors, setFormErrors] = useState({});
   const [showError, setShowError] = useState(false);
+
+  const dateInput = useRef(null);
+
+  const updateEvent = (key, value) => {
+    setFormElements((prevElements) => ({ ...prevElements, [key]: value }));
+  };
+
+  useEffect(() => {
+    const dateFieldInit = new Pikaday({
+      field: dateInput.current,
+      onSelect: (date) => {
+        const formattedDate = formatDate(date);
+        dateInput.current.value = formattedDate;
+        updateEvent('event_date', formattedDate);
+      },
+    });
+
+    // Return a cleanup function.
+    // React will call this prior to unmounting.
+    return () => dateFieldInit.destroy();
+  }, []);
 
   const onFormChange = (e) => {
     const { name, value, checked } = e.target;
@@ -27,6 +51,7 @@ const EventForm = () => {
       setShowError(true);
     } else {
       setShowError(false);
+      addEvent(formElements);
       console.log('Submitted', formElements);
     }
   };
@@ -59,7 +84,13 @@ const EventForm = () => {
         <div>
           <label htmlFor="event_date">
             <strong>Date:</strong>
-            <input type="text" id="event_date" name="event_date" value={formElements.event_date} onChange={onFormChange} />
+            <input
+              type="text"
+              id="event_date"
+              name="event_date"
+              ref={dateInput}
+              autoComplete="off"
+            />
           </label>
         </div>
         <div>
@@ -92,6 +123,10 @@ const EventForm = () => {
       </form>
     </section>
   );
+};
+
+EventForm.propTypes = {
+  addEvent: PropTypes.func.isRequired,
 };
 
 export default EventForm;

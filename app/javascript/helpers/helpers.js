@@ -1,4 +1,6 @@
-export const validateEvent = () => {
+import { error } from './notifications';
+
+export const validateEvent = (formElements) => {
   const errors = {};
 
   if (formElements.event_type === '') {
@@ -23,4 +25,15 @@ export const validateEvent = () => {
   return errors;
 };
 
-export const joke = () => "I don't know, you tell a joke";
+export const formatDate = (inputDate) => {
+  const YYYY = inputDate.getFullYear();
+  const MM = `0${inputDate.getMonth() + 1}`.slice(-2);
+  const DD = `0${inputDate.getDate()}`.slice(-2);
+
+  return `${YYYY}-${MM}-${DD}`;
+};
+
+export const handleAsyncError = (err) => {
+  error('Something went wrong, yikes.');
+  console.error(err);
+};

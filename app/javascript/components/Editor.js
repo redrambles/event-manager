@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import {
+  Routes, Route, useNavigate,
+} from 'react-router-dom';
+import { success, handleAsyncError } from '../helpers';
 import Header from './Header';
 import Event from './Event';
 import EventList from './EventList';
@@ -8,7 +11,7 @@ import EventForm from './EventForm';
 const Editor = () => {
   const [events, setEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsLoading(true);
@@ -20,8 +23,7 @@ const Editor = () => {
         const data = await response.json();
         setEvents(data);
       } catch (err) {
-        setIsError(true);
-        console.error(err);
+        handleAsyncError(err);
       }
 
       setIsLoading(false);
@@ -30,20 +32,64 @@ const Editor = () => {
     fetchEvents();
   }, []);
 
+  const addEvent = async (newEvent) => {
+    try {
+      const response = await window.fetch('/api/events', {
+        method: 'POST',
+        body: JSON.stringify(newEvent),
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+      // Check to make sure we don't get a 404 or some crap
+      if (!response.ok) throw Error(response.statusText);
+
+      // We're good, let's do this:
+
+      const savedEvent = await response.json();
+      const updatedEvents = [...events, savedEvent];
+      setEvents(updatedEvents);
+      success('Event Added, bitch!');
+      navigate(`/events/${savedEvent.id}`);
+    } catch (err) {
+      handleAsyncError(err);
+    }
+  };
+
+  const deleteEvent = async (eventId) => {
+    const confirm = window.confirm('Are you sure you want to delete this event?');
+
+    if (confirm) {
+      try {
+        const response = await window.fetch(`/api/events/${eventId}`, {
+          method: 'DELETE',
+        });
+
+        if (!response.ok) throw Error(response.statusText);
+
+        success('Bye Felicia!');
+        navigate('/events');
+        setEvents(events.filter((event) => event.id !== eventId));
+      } catch (err) {
+        handleAsyncError(err);
+      }
+    }
+  };
+
   return (
     <>
       <Header />
       <div className="grid">
         {' '}
-        {isError && <p>Something went wrong, bitch! Check out the console and cry.</p>}
         {isLoading ? <p className="loading">Loading...</p>
           : (
             <>
               <EventList events={events} />
 
               <Routes>
-                <Route path="/new" element={<EventForm />} />
-                <Route path="/:id" element={<Event events={events} />} />
+                <Route path="/new" element={<EventForm addEvent={addEvent} />} />
+                <Route path="/:id" element={<Event events={events} onDelete={deleteEvent} />} />
               </Routes>
             </>
           )}
