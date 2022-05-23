@@ -1,4 +1,4 @@
-# Hiya! ~(^-^)~
+# Hiya! ＼(＾O＾)／
 
 Here's how to get this up and running locally so you can play around:
 
@@ -10,5 +10,7 @@ Here's how to get this up and running locally so you can play around:
 - Run this thing: `./bin/dev`
 
 Visit `http://localhost:3000` - you should see the app!
+
+Based on [this magnificent tutorial](https://hibbard.eu/rails-react-crud-app/#creating-a-hello-world-react-app) by James Hibbard
 
 

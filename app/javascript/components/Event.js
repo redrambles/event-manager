@@ -16,8 +16,8 @@ const Event = ({ events, onDelete }) => {
         {' - '}
         {event.event_type}
       </h2>
-      <Link to={`/events/${event.id}/edit`}>Edit</Link>
-      <button className="delete" type="button" onClick={() => onDelete(event.id)}>
+      <Link to={`/events/${event.id}/edit`}><button className="btn" type="button">Edit</button></Link>
+      <button className="delete btn" type="button" onClick={() => onDelete(event.id)}>
         Delete
       </button>
       <ul>

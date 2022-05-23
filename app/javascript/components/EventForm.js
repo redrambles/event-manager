@@ -149,7 +149,7 @@ const EventForm = ({ onSave, events }) => {
           </label>
         </div>
         <div className="form-actions">
-          <button type="submit">Save</button>
+          <button className="btn" type="submit">Save</button>
           <Link to={cancelURL}>Cancel</Link>
         </div>
       </form>
