@@ -1,5 +1,7 @@
 import { error } from './notifications';
 
+const isValidDate = (dateObj) => !Number.isNaN(Date.parse(dateObj));
+
 export const validateEvent = (formElements) => {
   const errors = {};
 
@@ -14,12 +16,16 @@ export const validateEvent = (formElements) => {
     errors.title = 'You must enter a title';
   }
 
-  if (formElements.speakers === '') {
+  if (formElements.speaker === '') {
     errors.speaker = 'You must enter at least one speaker';
   }
 
   if (formElements.host === '') {
     errors.host = 'You must enter at least one host';
+  }
+
+  if (!isValidDate(formElements.event_date)) {
+    errors.event_date = 'You must enter a valid date';
   }
 
   return errors;

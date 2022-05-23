@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Pikaday from 'pikaday';
 import { useParams, Link } from 'react-router-dom';
 import { validateEvent, formatDate } from '../helpers';
+import EventNotFound from './EventNotFound';
 import 'pikaday/css/pikaday.css';
 
 // We could either be passed a specific event
@@ -78,8 +79,14 @@ const EventForm = ({ onSave, events }) => {
     }
   };
 
+  const cancelURL = id ? `events/${id}` : '/events';
+  const title = id ? `${formElements.event_date} - ${formElements.event_type}` : 'New Event';
+
+  if (id && !formElements.id) return <EventNotFound />;
+
   return (
     <section>
+      <h2>{title}</h2>
 
       {showError && (
 
@@ -95,7 +102,7 @@ const EventForm = ({ onSave, events }) => {
       </div>
 
       )}
-      <h2>New Event</h2>
+
       <form className="eventForm" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="event_type">
@@ -143,6 +150,7 @@ const EventForm = ({ onSave, events }) => {
         </div>
         <div className="form-actions">
           <button type="submit">Save</button>
+          <Link to={cancelURL}>Cancel</Link>
         </div>
       </form>
     </section>
