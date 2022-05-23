@@ -1,18 +1,35 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, {
+  useState, useRef, useCallback, useEffect,
+} from 'react';
 import PropTypes from 'prop-types';
 import Pikaday from 'pikaday';
+import { useParams, Link } from 'react-router-dom';
 import { validateEvent, formatDate } from '../helpers';
 import 'pikaday/css/pikaday.css';
 
-const EventForm = ({ addEvent }) => {
-  const [formElements, setFormElements] = useState({
-    event_type: '',
-    event_date: '',
-    title: '',
-    speakers: '',
-    host: '',
-    published: false,
-  });
+// We could either be passed a specific event
+const EventForm = ({ onSave, events }) => {
+  // We'll only get this if we are editing and the url is /events/:id
+  const { id } = useParams();
+
+  const initialEventState = useCallback(() => {
+    const defaults = {
+      event_type: '',
+      event_date: '',
+      title: '',
+      speaker: '',
+      host: '',
+      published: false,
+    };
+
+    const currentEvent = id ? events.find((evt) => evt.id === Number(id)) : {};
+
+    return { ...defaults, ...currentEvent };
+  }, [events, id]);
+
+  // These will begin as either empty if creating new event, or pre-populated if editing
+
+  const [formElements, setFormElements] = useState(initialEventState);
 
   const [formErrors, setFormErrors] = useState({});
   const [showError, setShowError] = useState(false);
@@ -26,6 +43,7 @@ const EventForm = ({ addEvent }) => {
   useEffect(() => {
     const dateFieldInit = new Pikaday({
       field: dateInput.current,
+      toString: (date) => formatDate(date),
       onSelect: (date) => {
         const formattedDate = formatDate(date);
         dateInput.current.value = formattedDate;
@@ -37,6 +55,10 @@ const EventForm = ({ addEvent }) => {
     // React will call this prior to unmounting.
     return () => dateFieldInit.destroy();
   }, []);
+
+  useEffect(() => {
+    setFormElements(initialEventState);
+  }, [initialEventState]);
 
   const onFormChange = (e) => {
     const { name, value, checked } = e.target;
@@ -51,7 +73,7 @@ const EventForm = ({ addEvent }) => {
       setShowError(true);
     } else {
       setShowError(false);
-      addEvent(formElements);
+      onSave(formElements);
       console.log('Submitted', formElements);
     }
   };
@@ -89,6 +111,8 @@ const EventForm = ({ addEvent }) => {
               id="event_date"
               name="event_date"
               ref={dateInput}
+              value={formElements.event_date}
+              onChange={onFormChange}
               autoComplete="off"
             />
           </label>
@@ -100,15 +124,15 @@ const EventForm = ({ addEvent }) => {
           </label>
         </div>
         <div>
-          <label htmlFor="speakers">
+          <label htmlFor="speaker">
             <strong>Speakers:</strong>
-            <input type="text" id="speakers" name="speakers" value={formElements.speakers} onChange={onFormChange} />
+            <input type="text" id="speaker" name="speaker" value={formElements.speaker} onChange={onFormChange} />
           </label>
         </div>
         <div>
           <label htmlFor="host">
             <strong>Hosts:</strong>
-            <input type="text" id="host" name="host" value={formElements.hosts} onChange={onFormChange} />
+            <input type="text" id="host" name="host" value={formElements.host} onChange={onFormChange} />
           </label>
         </div>
         <div>
@@ -126,7 +150,23 @@ const EventForm = ({ addEvent }) => {
 };
 
 EventForm.propTypes = {
-  addEvent: PropTypes.func.isRequired,
+  onSave: PropTypes.func,
+  events: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      event_type: PropTypes.string,
+      event_date: PropTypes.string,
+      title: PropTypes.string,
+      speaker: PropTypes.string,
+      host: PropTypes.string,
+      published: PropTypes.bool,
+    }),
+  ),
+};
+
+EventForm.defaultProps = {
+  events: [],
+  onSave: () => {},
 };
 
 export default EventForm;

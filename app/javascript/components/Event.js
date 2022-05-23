@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const Event = ({ events, onDelete }) => {
@@ -12,6 +12,7 @@ const Event = ({ events, onDelete }) => {
         {' - '}
         {event.event_type}
       </h2>
+      <Link to={`/events/${event.id}/edit`}>Edit</Link>
       <button className="delete" type="button" onClick={() => onDelete(event.id)}>
         Delete
       </button>
