@@ -50,7 +50,7 @@ const Editor = () => {
       const savedEvent = await response.json();
       const updatedEvents = [...events, savedEvent];
       setEvents(updatedEvents);
-      success('Event Added, bitch!');
+      success('Event Added, you beautiful human!');
       navigate(`/events/${savedEvent.id}`);
     } catch (err) {
       handleAsyncError(err);

@@ -1,50 +1,42 @@
 [
 	{
-		"event_type": "Symposium",
+		"event_type": "Panel",
 		"event_date": "2022-07-14",
-		"title": "Ada Lovelace — The Making of a Computer Scientist",
-		"speaker": "Monica S. Lam, Yoky Matsuoka, Dorit Aharonov",
-		"host": "Ursula Martin",
+		"title": "The many benefits of sleep",
+		"speaker": "Prof Meghan and the Snooze Crew",
+		"host": "Rita the T-rex",
 		"published": false
 	},
 	{
-		"event_type": "Colloquium",
+		"event_type": "Quick Talk",
 		"event_date": "2022-04-12",
-		"title": "Scholasticism in Medieval and Early Modern History",
-		"speaker": "Robin Fleming",
-		"host": "Henry Louis Gates Jr.",
+		"title": "React and Rails, can they be friends?",
+		"speaker": "Ann Cascarano",
+		"host": "Bernice the Llama",
 		"published": true
 	},
 	{
-		"event_type": "Symposium",
+		"event_type": "Panel",
 		"event_date": "2022-03-30",
-		"title": "Charles II and the English Restoration",
-		"speaker": "Kate Williams, Patrick Morrah, Charles Spencer",
-		"host": "Lucy Worsley",
+		"title": "Let's talk about semi-colons",
+		"speaker": "Harriet, Jenna and Eleanor",
+		"host": "Rita the T-rex",
 		"published": true
 	},
 	{
-		"event_type": "Symposium",
+		"event_type": "Panel",
 		"event_date": "2022-03-01",
-		"title": "Remembering the Titanic, One of the Greatest Ever Maritime Tragedies",
-		"speaker": "William Hazelgrove, Lauren Tarshis, Andrew Wilson",
-		"host": "Dan Snow",
+		"title": "Mechanical keyboards, worth the hype?",
+		"speaker": "Cassidy Williams and RWC staff",
+		"host": "Rita the T-rex",
 		"published": true
 	},
 	{
-		"event_type": "Symposium",
-		"event_date": "2022-02-07",
-		"title": "Symbolism in Portraits of Queen Elizabeth I",
-		"speaker": "David Starkey, Susan Doran, Alison Weir",
-		"host": "Suzannah Lipscomb",
-		"published": true
-	},
-	{
-		"event_type": "Colloquium",
+		"event_type": "Quick Talk",
 		"event_date": "2021-12-19",
-		"title": "A Brief History Of China's Dynasties",
-		"speaker": "Iris Chang",
-		"host": "Pamela Kyle Crossley",
+		"title": "Is there a point to wearing aprons?",
+		"speaker": "Iris Chen",
+		"host": "Bernice the Llama",
 		"published": true
 	}
 ]

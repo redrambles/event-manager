@@ -1,27 +1,14 @@
-# README
+# Hiya! ~(^-^)~
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Here's how to get this up and running locally so you can play around:
 
-To run this locally:
-`./bin/dev`
+- Clone the repo `git clone git@github.com:redrambles/event-manager.git`
+- Cd into the directory `cd event-manager`
+- Install our stuffz `npm install`
+- Create the db `rake db:migrate`
+- Seed it with some pretty lame data `rake db:seed`
+- Run this thing: `./bin/dev`
 
-Things you may want to cover:
+Visit `http://localhost:3000` - you should see the app!
 
-* Ruby version
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
