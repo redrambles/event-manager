@@ -7,6 +7,7 @@ import Header from './Header';
 import Event from './Event';
 import EventList from './EventList';
 import EventForm from './EventForm';
+import PlaceHolderEvent from './PlaceHolderEvent';
 
 const Editor = () => {
   const [events, setEvents] = useState([]);
@@ -95,7 +96,7 @@ const Editor = () => {
         if (event.id !== updatedEvent.id) {
           return event;
         }
-        return { ...event, ...updatedEvent };
+        return updatedEvent;
       });
       setEvents(updatedEvents);
       success('Event Updated!');
@@ -116,6 +117,7 @@ const Editor = () => {
               <EventList events={events} />
 
               <Routes>
+                <Route path="/" element={<PlaceHolderEvent />} />
                 <Route path="/new" element={<EventForm onSave={addEvent} />} />
                 <Route path="/:id" element={<Event events={events} onDelete={deleteEvent} />} />
                 <Route path="/:id/edit" element={<EventForm events={events} onSave={updateEvent} />} />
