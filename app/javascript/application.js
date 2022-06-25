@@ -4,6 +4,7 @@ import './controllers';
 import React, { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { EventProvider } from './context/context';
 import App from './components/App';
 
 const container = document.getElementById('root');
@@ -13,7 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
   root.render(
     <StrictMode>
       <Router>
-        <App />
+        <EventProvider>
+          <App />
+        </EventProvider>
       </Router>
     </StrictMode>,
   );
