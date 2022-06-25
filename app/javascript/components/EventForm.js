@@ -58,6 +58,7 @@ const EventForm = ({ onSave, events }) => {
   }, []);
 
   useEffect(() => {
+    // Clear fields when user clicks on New Event after editing an event
     setFormElements(initialEventState);
   }, [initialEventState]);
 

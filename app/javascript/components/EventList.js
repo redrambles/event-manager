@@ -31,7 +31,6 @@ const EventList = ({ events }) => {
         <Link to="/events/new">New Event</Link>
       </h2>
       <input className="search" placeholder="Search for event" type="text" ref={searchInput} onKeyUp={updateSearchTerm} />
-
       <ul>
         {events.filter((evt) => matchSearchTerm(evt))
           .sort((a, b) => new Date(b.event_date) - new Date(a.event_date))
